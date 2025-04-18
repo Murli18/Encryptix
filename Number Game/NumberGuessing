@@ -1,0 +1,71 @@
+import java.util.Random;
+import java.util.Scanner;
+
+public class NumberGuessing {
+
+    private static final int MAX_TRIES = 5;
+    private static final int TOTAL_STAGES = 3;
+    private static final int MIN_RANGE = 1;
+    private static final int MAX_RANGE = 100;
+
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        int stagesPlayed = 0;
+        int stagesCleared = 0;
+
+        System.out.println(" Number Guessing Challenge Game");
+        System.out.println("Try to guess the hidden number between " + MIN_RANGE + " and " + MAX_RANGE + ".");
+        System.out.println("You get " + MAX_TRIES + " chances per stage.");
+        System.out.println("You can play up to " + TOTAL_STAGES + " stages in this session.");
+
+        while (stagesPlayed < TOTAL_STAGES) {
+            System.out.println("\n--- Stage " + (stagesPlayed + 1) + " ---");
+            
+            boolean cleared = startStage(input);
+            if (cleared) {
+                stagesCleared++;
+            }
+
+            stagesPlayed++;
+            System.out.println("Progress: " + stagesCleared + " stage(s) cleared out of " + stagesPlayed);
+
+            if (stagesPlayed < TOTAL_STAGES) {
+                System.out.print("Continue to the next stage? (yes/no): ");
+                String choice = input.next().trim().toLowerCase();
+                if (!choice.equals("yes")) {
+                    break;
+                }
+            }
+        }
+
+        System.out.println("\n=== Session Summary ===");
+        System.out.println("Stages Attempted: " + stagesPlayed);
+        System.out.println("Stages Cleared: " + stagesCleared);
+        System.out.println("Thanks for playing!");
+        input.close();
+    }
+
+    private static boolean startStage(Scanner input) {
+        Random generator = new Random();
+        int secretNumber = generator.nextInt(MAX_RANGE - MIN_RANGE + 1) + MIN_RANGE;
+        int triesUsed = 0;
+
+        while (triesUsed < MAX_TRIES) {
+            System.out.print("Guess (" + (triesUsed + 1) + "/" + MAX_TRIES + "): ");
+            int guess = input.nextInt();
+            triesUsed++;
+
+            if (guess == secretNumber) {
+                System.out.println("✅ That’s the correct number.");
+                return true;
+            } else if (guess < secretNumber) {
+                System.out.println("Hint: Go higher!");
+            } else {
+                System.out.println("Hint: Go lower!");
+            }
+        }
+
+        System.out.println("❌ No more tries left. The number was: " + secretNumber);
+        return false;
+    }
+}
