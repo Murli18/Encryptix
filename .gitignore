@@ -1,0 +1,44 @@
+# Eclipse and Java
+.metadata/
+bin/
+*.class
+*.log
+*.tmp
+*.swp
+*.bak
+
+# Maven
+target/
+!.mvn/wrapper/maven-wrapper.jar
+
+# Gradle
+.gradle/
+build/
+
+# Eclipse-specific
+*.launch
+.settings/
+.project
+.classpath
+
+# OS-specific
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+logs/
+*.log
+
+# Package Files
+*.jar
+*.war
+*.ear
+
+# IntelliJ IDEA (just in case)
+.idea/
+*.iml
+out/
+
+# VS Code (if used)
+.vscode/
